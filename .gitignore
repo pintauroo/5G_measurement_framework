@@ -3,9 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+*.csv
+*.pdf
+Dataset/
+csv_data/
 # C extensions
 *.so
-
 # Distribution / packaging
 .Python
 build/

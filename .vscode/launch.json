@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: pcap_parser.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/pcap_parser.py",
+            "console": "integratedTerminal",
+            "args": [
+                "/home/andrea/Documents/Projects/5G_measurement_framework/Dataset/new_oai_exp2_106prb/core_v1.pcap",
+                "/home/andrea/Documents/Projects/5G_measurement_framework/Dataset/new_oai_exp2_106prb/ue1_cubic_12.1.1.152_10000_v1.pcap",
+                "/home/andrea/Documents/Projects/5G_measurement_framework/Dataset/new_oai_exp2_106prb/ue1_cubic_12.1.1.152_v1",
+                "ktmmmmmmmmmmm"
+            ]
+            // "args": [
+            //     "/home/andrea/Documents/Projects/5G_measurement_framework/Dataset/2ue_ul/core.pcap",
+            //     "/home/andrea/Documents/Projects/5G_measurement_framework/Dataset/2ue_ul/merged.pcap",
+            //     "/home/andrea/Documents/Projects/5G_measurement_framework/Dataset/2ue_ul/ue1_cubic_12.1.1.53",
+            //     "ktmmmmmmmmmmm"
+            // ]
+        }
+    ]
+}
+
+
+
