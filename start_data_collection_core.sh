@@ -11,8 +11,6 @@ cc=cubic
 DL=false
 interface=demo-oai
 iperf_duration=100s
-pcap_file_name=core.pcap
-cc_file_name=core_cc
 tcpdump_tmux_name=iperf_capture
 cc_tmux_name=cc
 iperf_client_tmux_name=iperf_client
@@ -41,9 +39,9 @@ if ! (tmux has-session -t "$iperf_capture")
   then
     if "$DL"
       then
-        tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"DL_${pcap_file_name}"'; sleep 0.00001' 
+        tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w 'core_DL.pcap'; sleep 0.00001' 
     else
-      tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"UL_${pcap_file_name}"'; sleep 0.00001'
+      tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w 'core_UL.pcap'; sleep 0.00001'
     fi
 fi
 
@@ -60,7 +58,7 @@ if "$DL"
     while true; do
       if ! (tmux has-session -t "${iperf_client_tmux_name}${cli_num}")
         then
-	  tmux new-session -d -s "${cc_tmux_name}${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"${cc_file_name}_${cc}_DL_${cli_num}"'; sleep 0.00001'	
+	  tmux new-session -d -s "${cc_tmux_name}${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"core_${cc}_${dst_addr}_${dst_port}_DL_${cli_num}"'; sleep 0.00001'	
           sleep 1s
 	  tmux new-session -d -s "${iperf_client_tmux_name}${cli_num}" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
           date +%H%M%S.%6N
