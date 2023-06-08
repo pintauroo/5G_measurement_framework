@@ -41,9 +41,9 @@ if ! (tmux has-session -t "$iperf_capture")
   then
     if "$DL"
       then
-        tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"DL_{$pcap_file_name}"'; sleep 0.00001' 
+        tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"DL_${pcap_file_name}"'; sleep 0.00001' 
     else
-      tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"UL_{$pcap_file_name}"'; sleep 0.00001'
+      tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"UL_${pcap_file_name}"'; sleep 0.00001'
     fi
 fi
 
