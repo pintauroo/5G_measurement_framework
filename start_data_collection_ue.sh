@@ -54,9 +54,9 @@ else
   date +%H%M%S.%6N
   
   while tmux has-session -t "iperf_client"; do
-      sleep 10s
-    done
+    sleep 10s
+  done
  
-    tmux kill-server
+  tmux kill-server
 
 fi
