@@ -49,12 +49,14 @@ if "$DL"
     sleep 1s
     tmux new-session -d -s "iperf_client" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
     date +%H%M%S.%6N
+    
+    while tmux has-session -t "iperf_client"; do
+      sleep 10s
+    done
+ 
+    tmux kill-server
 
 else
   tmux new-session -d -s "iperf_server" iperf3 -s -p "$dst_port"
 
 fi
-
-sleep "$iperf_duration"
-sleep 10s
-tmux kill-server
