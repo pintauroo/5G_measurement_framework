@@ -40,21 +40,23 @@ if "$DL"
     tmux new-session -d -s "iperf_server" iperf3 -s -p "$dst_port"
 
 else
-  tmux new-session -d -s "cc" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"$cc_file_name"'; sleep 0.00001'
-    sleep 1s
-  tmux new-session -d -s "iperf_client" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
-  date +%H%M%S.%6N
-
   echo "dst_port: $dst_port"
   echo "dst_addr: $dst_addr"
   echo "cc frequency: $frequency"
   echo "cc alg: $cc"
   echo "iperf duration: $iperf_duration"
   echo "Dumping cc data in $cc_file_name"
-  echo "uplink"
+  echo "uplink" 
+  
+  tmux new-session -d -s "cc" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"$cc_file_name"'; sleep 0.00001'
+    sleep 1s
+  tmux new-session -d -s "iperf_client" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
+  date +%H%M%S.%6N
+  
+  while tmux has-session -t "iperf_client"; do
+      sleep 10s
+    done
+ 
+    tmux kill-server
 
 fi
-
-sleep "$iperf_duration"
-sleep 10s
-tmux kill-server
