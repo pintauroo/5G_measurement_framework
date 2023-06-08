@@ -11,12 +11,7 @@ cc=cubic
 DL=false
 interface=oaitun_ue1
 iperf_duration=100s
-pcap_file_name=ue.pcap
 cc_file_name=ue_cc
-tcpdump_tmux_name=iperf_capture
-cc_tmux_name=cc
-iperf_client_tmux_name=iperf_client
-iperf_server_tmux_name=iperf_server
 srv_num=1
 cli_num=1
 
@@ -35,24 +30,25 @@ while getopts ":p:a:f:c:d:i:t:" opt; do
 done
 
 echo "Capturing on $interface"
-echo "Dumping iperf session data in $pcap_file_name"
 
-if ! (tmux has-session -t "$iperf_capture")
+if ! (tmux has-session -t "iperf_capture")
   then
     if "$DL"
       then
-        tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"DL_${pcap_file_name}"'; sleep 0.00001' 
+        tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w 'ue_DL.pcap'; sleep 0.00001' 
+        echo "Dumping iperf session data in ue_DL.pcap"
     else
-      tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"UL_${pcap_file_name}"'; sleep 0.00001'
+      tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w 'ue_UL.pcap'; sleep 0.00001'
+      echo "Dumping iperf session data in ue_UL.pcap"
     fi
 fi
 
 if "$DL"
   then
     while true; do
-      if ! (tmux has-session -t "${iperf_server_tmux_name}${srv_num}")
+      if ! (tmux has-session -t "iperf_server${srv_num}")
         then
-          tmux new-session -d -s "${iperf_server_tmux_name}${srv_num}" iperf3 -s -p "$dst_port"
+          tmux new-session -d -s "iperf_server${srv_num}" iperf3 -s -p "$dst_port"
           break
       fi
       let "srv_num=srv_num+1"
@@ -69,18 +65,18 @@ else
   echo "uplink"
 
   while true; do
-    if ! (tmux has-session -t "${iperf_client_tmux_name}${cli_num}")
+    if ! (tmux has-session -t "iperf_client${cli_num}")
       then
-        tmux new-session -d -s "${cc_tmux_name}${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"${cc_file_name}_${cc}_UL_${cli_num}"'; sleep 0.00001'
+        tmux new-session -d -s "cc${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"${cc_file_name}_${cc}_UL_${cli_num}"'; sleep 0.00001'
         sleep 1s
-        tmux new-session -d -s "${iperf_client_tmux_name}${cli_num}" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
+        tmux new-session -d -s "iperf_client${cli_num}" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
         date +%H%M%S.%6N
         break
     fi
     let "cli_num=cli_num+1"
   done
 
-  while tmux has-session -t "iperf_client"; do
+  while tmux has-session -t "iperf_client${cli_num}; do
     sleep 5s
   done
   tmux kill-server
