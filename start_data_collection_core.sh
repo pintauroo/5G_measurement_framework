@@ -11,9 +11,6 @@ cc=cubic
 DL=false
 interface=demo-oai
 iperf_duration=100s
-cc_tmux_name=cc
-iperf_client_tmux_name=iperf_client
-iperf_server_tmux_name=iperf_server
 srv_num=1
 cli_num=1
 
