@@ -75,7 +75,7 @@ else
     let "cli_num=cli_num+1"
   done
 
-  while tmux has-session -t "iperf_client${cli_num}; do
+  while tmux has-session -t "iperf_client${cli_num}"; do
     sleep 5s
   done
   tmux kill-session -t "cc${cli_num}"
