@@ -11,7 +11,6 @@ cc=cubic
 DL=false
 interface=oaitun_ue1
 iperf_duration=100s
-cc_file_name=ue_cc
 srv_num=1
 cli_num=1
 
@@ -67,7 +66,7 @@ else
   while true; do
     if ! (tmux has-session -t "iperf_client${cli_num}")
       then
-        tmux new-session -d -s "cc${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"${cc_file_name}_${cc}_UL_${cli_num}"'; sleep 0.00001'
+        tmux new-session -d -s "cc${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"ue_${cc}_${dst_addr}_${dst_port}_UL_${cli_num}"'; sleep 0.00001'
         sleep 1s
         tmux new-session -d -s "iperf_client${cli_num}" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
         date +%H%M%S.%6N
@@ -79,6 +78,6 @@ else
   while tmux has-session -t "iperf_client${cli_num}; do
     sleep 5s
   done
-  tmux kill-server
+  tmux kill-session -t "cc${cli_num}"
 
 fi
