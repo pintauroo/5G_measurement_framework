@@ -39,7 +39,12 @@ echo "Dumping iperf session data in $pcap_file_name"
 
 if ! (tmux has-session -t "$iperf_capture")
   then
-    tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"$pcap_file_name"'; sleep 0.00001' 
+    if "$DL"
+      then
+        tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"DL_{$pcap_file_name}"'; sleep 0.00001' 
+    else
+      tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w '"UL_{$pcap_file_name}"'; sleep 0.00001'
+    fi
 fi
 
 if "$DL"
