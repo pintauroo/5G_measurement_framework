@@ -54,9 +54,9 @@ if "$DL"
     while true; do
       if ! (tmux has-session -t "iperf_client${cli_num}")
         then
-	  tmux new-session -d -s "cc${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"core_${cc}_${dst_addr}_${dst_port}_DL_${cli_num}"'; sleep 0.00001'	
+	  tmux new-session -d -s "cc${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"core_${cc}_${dst_addr}_${dst_port}_DL_client${cli_num}_v1"'; sleep 0.00001'	
           sleep 1s
-	  echo "Dumping cc data in core_${cc}_${dst_addr}_${dst_port}_DL_${cli_num}"
+	  echo "Dumping cc data in core_${cc}_${dst_addr}_${dst_port}_DL_client${cli_num}_v1"
 	  tmux new-session -d -s "iperf_client${cli_num}" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
           date +%H%M%S.%6N
           break
