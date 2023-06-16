@@ -68,6 +68,7 @@ else
       then
         tmux new-session -d -s "cc${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"ue_${cc}_${dst_addr}_${dst_port}_UL_client${cli_num}_v1"'; sleep 0.00001'
         sleep 1s
+        echo "Dumping cc data in ue_${cc}_${dst_addr}_${dst_port}_UL_client${cli_num}_v1"
         tmux new-session -d -s "iperf_client${cli_num}" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
         date +%H%M%S.%6N
         break
