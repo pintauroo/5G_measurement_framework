@@ -44,7 +44,7 @@ fi
 
 if "$DL" #DL case
   then
-    while true; do
+    while true; do #start_data_collection_ue.sh can be run multiple times on a single SRN, so ensure that tmux sessions and file names are given unique names for each run
       if ! (tmux has-session -t "iperf_server${srv_num}") 
         then
           tmux new-session -d -s "iperf_server${srv_num}" iperf3 -s -p "$dst_port"
@@ -76,9 +76,9 @@ else
     let "cli_num=cli_num+1"
   done
 
-  while tmux has-session -t "iperf_client${cli_num}"; do
+  while tmux has-session -t "iperf_client${cli_num}"; do #Wait until iperf3 session ends
     sleep 5s
   done
-  tmux kill-session -t "cc${cli_num}"
+  tmux kill-session -t "cc${cli_num}" #After iperf3 session ends, kill iperf3 client tmux session
 
 fi
