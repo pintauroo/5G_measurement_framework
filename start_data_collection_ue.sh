@@ -8,8 +8,8 @@ dst_port=10000
 dst_addr=192.168.70.129
 frequency=0.1
 cc=cubic
-DL=false
-interface=oaitun_ue1
+DL=false #Default to UL configuration
+interface=oaitun_ue1 #Interface on which packets are captured
 iperf_duration=100s
 srv_num=1
 cli_num=1
@@ -30,9 +30,9 @@ done
 
 echo "Capturing on $interface"
 
-if ! (tmux has-session -t "iperf_capture")
+if ! (tmux has-session -t "iperf_capture") #Avoid duplicating packet capture tmux session as this is unnecessary 
   then
-    if "$DL"
+    if "$DL" #Start one tmux session per SRN to capture packets on respective interface
       then
         tmux new-session -d -s "iperf_capture" 'tcpdump -i '"$interface"' -n tcp -s 88 -w 'ue_DL.pcap'; sleep 0.00001' 
         echo "Dumping iperf session data in ue_DL.pcap"
@@ -42,10 +42,10 @@ if ! (tmux has-session -t "iperf_capture")
     fi
 fi
 
-if "$DL"
+if "$DL" #DL case
   then
     while true; do
-      if ! (tmux has-session -t "iperf_server${srv_num}")
+      if ! (tmux has-session -t "iperf_server${srv_num}") 
         then
           tmux new-session -d -s "iperf_server${srv_num}" iperf3 -s -p "$dst_port"
           break
@@ -63,14 +63,14 @@ else
   echo "Dumping cc data in $cc_file_name"
   echo "uplink"
 
-  while true; do
+  while true; do #start_data_collection_ue.sh can be run multiple times on a single SRN, so ensure that tmux sessions and file names are given unique names for each run
     if ! (tmux has-session -t "iperf_client${cli_num}")
       then
         tmux new-session -d -s "cc${cli_num}" './ss_script.sh '"$dst_addr"' '"$frequency"' > '"ue_${cc}_${dst_addr}_${dst_port}_UL_client${cli_num}_v1"'; sleep 0.00001'
         sleep 1s
         echo "Dumping cc data in ue_${cc}_${dst_addr}_${dst_port}_UL_client${cli_num}_v1"
         tmux new-session -d -s "iperf_client${cli_num}" iperf3 -c "$dst_addr" -t "$iperf_duration" -C "$cc" -p "$dst_port"
-        date +%H%M%S.%6N
+        date +%H%M%S.%6N #Print current time for synchronization with wireless metrics
         break
     fi
     let "cli_num=cli_num+1"
