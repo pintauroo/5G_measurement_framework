@@ -1,3 +1,0 @@
-dpkt
-numpy
-matplotlib
