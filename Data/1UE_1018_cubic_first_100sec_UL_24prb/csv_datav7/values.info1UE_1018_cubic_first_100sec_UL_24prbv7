@@ -1,0 +1,68 @@
+
+----------------------------------------------------------
+
+Values used: last 100%
+
+Sending Rate:
+Connection            Median           Mean        Std Dev            Min            Max
+('12.1.1.153', 44338, '192.168.70.129', 10000)          0.000    4579055.344   12110653.018         0.000  53676640.000
+total                  0.000    4570333.333   12100760.784         0.000  53676640.000
+
+Throughput:
+Connection            Median           Mean        Std Dev            Min            Max
+('192.168.70.134', 44336, '192.168.70.129', 10000)          0.000        103.695       1685.608         0.000     30000.000
+('192.168.70.134', 44338, '192.168.70.129', 10000)    4560000.000    4573902.672     850836.268   1508040.000   6900000.000
+total            4560000.000    4565294.171     872646.983     30000.000   6900000.000
+
+Fairness:
+Connection            Median           Mean        Std Dev            Min            Max
+Throughput             0.500          0.501          0.022         0.500         1.000
+Sending Rate           1.000          1.000          0.000         1.000         1.000
+
+Avg Rtt:
+Connection            Median           Mean        Std Dev            Min            Max
+('12.1.1.153', 44338, '192.168.70.129', 10000)       4193.574       3605.704       1883.150        45.286      6791.407
+
+Inflight:
+Connection            Median           Mean        Std Dev            Min            Max
+('12.1.1.153', 44338, '192.168.70.129', 10000)   18759601.684   15755160.098    7955361.156    189299.512  25121550.904
+
+BDP:
+Connection            Median           Mean        Std Dev            Min            Max
+
+Buffer Backlog:
+Connection            Median           Mean        Std Dev            Min            Max
+
+----------------------------------------------------------
+
+Values used: last 30.0%
+
+Sending Rate:
+Connection            Median           Mean        Std Dev            Min            Max
+('12.1.1.153', 44338, '192.168.70.129', 10000)          0.000    3286257.325   12457648.832         0.000  52920000.000
+total                  0.000    3286257.325   12457648.832         0.000  52920000.000
+
+Throughput:
+Connection            Median           Mean        Std Dev            Min            Max
+('192.168.70.134', 44336, '192.168.70.129', 10000)          0.000        191.083       2386.623         0.000     30000.000
+('192.168.70.134', 44338, '192.168.70.129', 10000)    4080000.000    4087440.510     409964.010   2940000.000   4920000.000
+total            4020000.000    4060880.000     521673.345     30000.000   4920000.000
+
+Fairness:
+Connection            Median           Mean        Std Dev            Min            Max
+Throughput             0.500          0.503          0.040         0.500         1.000
+Sending Rate           1.000          1.000          0.000         1.000         1.000
+
+Avg Rtt:
+Connection            Median           Mean        Std Dev            Min            Max
+('12.1.1.153', 44338, '192.168.70.129', 10000)       5181.047       5178.347        711.468      3724.146      6791.407
+
+Inflight:
+Connection            Median           Mean        Std Dev            Min            Max
+('12.1.1.153', 44338, '192.168.70.129', 10000)   20141180.632   18879950.749    4975191.168    850014.000  25121550.904
+
+BDP:
+Connection            Median           Mean        Std Dev            Min            Max
+
+Buffer Backlog:
+Connection            Median           Mean        Std Dev            Min            Max
