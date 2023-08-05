@@ -18,6 +18,9 @@ You will very likely experience lates (i.e., LLLLLL) in the gNb and UE consoles 
 ### Analysis tool
 
 The pcap parser is designed to take the pcap file from both the sender and the receiver as its input. It effectively extracts the aforementioned metrics and stores them in a CSV format, subsequently generating visual plots that depict the values over time. To execute the tool, run the following command:
+```python
 python pcap_parser.py
+```
+Contained within the Data folder are the outcomes derived from the research paper. For each type of experiment, the execution was repeated 10 times. 
+We have also made available the corresponding PDF plots showcasing temporal trends and the associated CSV result files. Notably, there exists a script named __analyze.sh__ that automates the process of running the analysis across a series of replicated experiments.
 
-Contained within the Data folder are the outcomes derived from the research paper. For each type of experiment, the execution was repeated 10 times. We have also made available the corresponding PDF plots showcasing temporal trends and the associated CSV result files. Notably, there exists a script named analyzes.sh that automates the process of running the analysis across a series of replicated experiments.
