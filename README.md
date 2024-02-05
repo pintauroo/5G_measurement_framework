@@ -5,14 +5,25 @@ In order to amass measurements from the 5G protocol stack, we distribute the sof
 
 
 ### Dataset collection
-  Start the core using ./start_core.sh in the OAI-CORE LXC container.
-  Start the gNb using ./start_gnb.sh in the OAI-RAN LXC container that has been selected to operate as the gNb.
-  Start the UE using ./start_ue.sh in all OAI-RAN LXC containers that have to host UE functionalities.
-  Run the start_data_collection scripts in the core and UE, providing the necessary arguments; open a new terminal for the UE. Always run this script at the server side first (i.e., at the core network for UL, or at the UE for DL).  These scripts will start separate tmux sessions containing the iperf3 server and tcpdump at the server side; and the iperf3 client, tcpdump, and the CC collection script at the client side.  
+To make our framework as accessible as possible, we outline the general steps to conduct a basic experiment below. 
+
+Make a reservation via the Colosseum GUI.
+    Select one OAI-CORE image.
+    Select the appropriate number of OAI-RAN images; at least two (one for gNB and one for each UE in the experiment).
+    Once the reservation starts, ssh into the LXCs.
+    Start the RF Scenario using ./start_scenario.sh, providing the scenario name as an argument; this script is located in OAI-CORE and OAI-RAN and can be started from any of the LXCs.
+    
+Start the core using ./start_core.sh in the OAI-CORE LXC container.
+Start the gNB using ./start_gnb.sh in the OAI-RAN LXC container that has been selected to operate as the gNB.
+Start the UE using ./start_ue.sh in all OAI-RAN LXC containers that have been chosen to host UEs.
+
+Run the start_data_collection scripts in the core and UE, providing the necessary arguments; open a new terminal for the UE. Always run this script at the server side first (i.e., at the core network for UL, or at the UE for DL).  These scripts will start separate tmux sessions containing the iperf3 server and tcpdump at the server side; and the iperf3 client, tcpdump, and the CC collection script at the client side.
+
 Once the session ends, run tmux kill-server in all terminals where the start_data_collection scripts were run.
-  MAC-layer data is logged in OAI-Colosseum/nr_stats.csv and end-to-end data is stored in files in the current directory (i.e., root).   
-  When the experiment is completed, you can stop the core network using ./stop_core.sh located in OAI-CORE, and the RF scenario in any of the LXCs using ./stop_scenario.sh.  
-You will very likely experience lates (i.e., LLLLLL) in the gNb and UE consoles when running experimental iperf3 sessions, but this does not usually cause serious issues in our experience; especially when using 24 PRBs. In the case that the UE gets disconnected from the gNb, simply restart the UE.
+MAC-layer data is logged in OAI-Colosseum/nr_stats.csv and end-to-end data is stored in files in the current directory (i.e., root).
+When the experiment is completed, you can stop the core network using ./stop_core.sh located in OAI-CORE, and the RF scenario in any of the LXCs using ./stop_scenario.sh.
+
+You will very likely experience lates (i.e., LLLLLL) in the gNB and UE consoles when running experimental iperf3 sessions, but this does not usually cause serious issues in our experience; especially when using 24 PRBs. In the case that the UE gets disconnected from the gNB, simply restart the UE.
 
 
 ### Analysis tool
