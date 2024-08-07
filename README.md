@@ -35,3 +35,14 @@ python pcap_parser.py
 Contained within the Data folder are the outcomes derived from the research paper. For each type of experiment, the execution was repeated 10 times. 
 We have also made available the corresponding PDF plots showcasing temporal trends and the associated CSV result files. Notably, there exists a script named __analyze.sh__ that automates the process of running the analysis across a series of replicated experiments.
 
+### Data
+
+In data folder we have some demo dataset to collected using the framework. The folder naming structure is like below -
+
+For One UE and Two Streams case:
+
+<Colosseum_Scenario_Number>_first100sec_<TCP_protocol_name_1st_stream>_<TCP_protocol_name_2nd_stream>_1ue_2streams_<PRBs>_<Traffic_Direction>
+
+For One UE and One Stream case:
+
+1UE_<Colosseum_Scenario_Number>_<TCP_protocol_name>_first_<Duration>_<Traffic_direction>_<PRBs>
