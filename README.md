@@ -1,4 +1,4 @@
-# Hercules: 5G_measurement_framework
+# Hercules: An Emulation-Based Framework for Transport Layer Measurements over 5G Wireless Networks
 Hercules represents a comprehensive end-to-end transport protocol analysis tool designed specifically for evaluating TCP Congestion Control performance across 5G channels. This tool has the capability to thoroughly scrutinize TCP-based internet traffic. By utilizing two pcap files – one from the source and another from the destination – Hercules extracts distinctive measurements on a per-flow basis. These measurements encompass parameters such as Sending Rate, Throughput, Fairness, Number of Retransmissions, Round-Trip Time (RTT), Average RTT, Inflight Data, and Congestion Window Size.
 
 In order to amass measurements from the 5G protocol stack, we distribute the software within a containerized package named FILE.tar.gz. Once the measurements have been acquired, the pertinent information becomes accessible.
